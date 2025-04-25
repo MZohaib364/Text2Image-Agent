@@ -12,7 +12,7 @@ load_dotenv()
 API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
 class PromptRequest(BaseModel):
     prompt: str
