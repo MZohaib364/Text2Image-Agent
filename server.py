@@ -30,8 +30,6 @@ class Text2ImageServicer(text2image_pb2_grpc.Text2ImageServiceServicer):
                 with open(file_path, 'wb') as f:
                        f.write(response.content)
 
-
-
                 return text2image_pb2.Text2ImageResponse(status="success", file=file_path)
         
 def serve():
