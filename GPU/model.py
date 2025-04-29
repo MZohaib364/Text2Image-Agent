@@ -1,31 +1,24 @@
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 import torch
 
-# Check if CUDA is available and set the device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-# Load the Stable Diffusion v1.5 model
 pipe = StableDiffusionPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     torch_dtype=dtype,
-    use_safetensors=True,  # safer and faster format if available
+    use_safetensors=True
 )
 
-# Move the pipeline to the selected device
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 pipe = pipe.to(device)
 
-# Enable memory optimizations
-pipe.enable_attention_slicing()           # Reduce memory usage
-pipe.enable_vae_slicing()                 # Reduce VAE memory footprint (especially useful for low VRAM GPUs)
+pipe.enable_attention_slicing()
+pipe.enable_vae_slicing()
+# pipe.enable_model_cpu_offload()  # Optional for low VRAM
 
-# Optional: if your VRAM is still close to full, enable CPU offload
-# pipe.enable_model_cpu_offload()
-
-# Generate image
 prompt = "A highly realistic photo of a handsome young man standing on a mountain in golden hour lighting."
-image = pipe(prompt).images[0]
+image = pipe(prompt, height=384, width=384, num_inference_steps=25).images[0]
 
-# Save the image
 image.save("realistic_man_mountain.png")
-print("Image generated and saved as realistic_man_mountain.png")
+print("Image generated and saved.")
