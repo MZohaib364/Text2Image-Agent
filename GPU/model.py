@@ -6,6 +6,7 @@ dtype = torch.float16 if device == "cuda" else torch.float32
 
 pipe = StableDiffusionPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
+    # 'dreamlike-art/dreamlike-photoreal-2.0',
     torch_dtype=dtype,
     use_safetensors=True
 )
