@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10text2image.proto\x12\ntext2image\"-\n\x0cImageRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontext\x18\x02 \x01(\t\"K\n\rImageResponse\x12\x13\n\x0bstatus_code\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x14\n\x0cimage_base64\x18\x03 \x01(\t2Y\n\x11Text2ImageService\x12\x44\n\rGenerateImage\x12\x18.text2image.ImageRequest\x1a\x19.text2image.ImageResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10text2image.proto\x12\ntext2image\"-\n\x0cImageRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontext\x18\x02 \x01(\t\"_\n\rImageResponse\x12\x13\n\x0bstatus_code\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x14\n\x0cimage_base64\x18\x03 \x01(\t\x12\x12\n\nimage_path\x18\x04 \x01(\t2Y\n\x11Text2ImageService\x12\x44\n\rGenerateImage\x12\x18.text2image.ImageRequest\x1a\x19.text2image.ImageResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,7 +34,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_IMAGEREQUEST']._serialized_start=32
   _globals['_IMAGEREQUEST']._serialized_end=77
   _globals['_IMAGERESPONSE']._serialized_start=79
-  _globals['_IMAGERESPONSE']._serialized_end=154
-  _globals['_TEXT2IMAGESERVICE']._serialized_start=156
-  _globals['_TEXT2IMAGESERVICE']._serialized_end=245
+  _globals['_IMAGERESPONSE']._serialized_end=174
+  _globals['_TEXT2IMAGESERVICE']._serialized_start=176
+  _globals['_TEXT2IMAGESERVICE']._serialized_end=265
 # @@protoc_insertion_point(module_scope)
