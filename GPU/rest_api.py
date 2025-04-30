@@ -12,20 +12,21 @@ stub = text2image_pb2_grpc.Text2ImageServiceStub(channel)
 @app.route('/generate', methods=['POST'])
 def generate_image():
     data = request.json
-    context = data.get("context", "")
-    text = data.get("text", "")
+    prompt = data.get("prompt", "")
 
-    if not context or not text:
-        return jsonify({"error": "Both 'context' and 'text' are required"}), 400
+    if not prompt:
+        return jsonify({"error": "Prompt is required"}), 400
 
-    grpc_request = text2image_pb2.ImageRequest(context=context, text=text)
+    grpc_request = text2image_pb2.ImageRequest(prompt=prompt)
     grpc_response = stub.GenerateImage(grpc_request)
 
+    # Return both image_path and base64 image in the response
     return jsonify({
         "image_base64": grpc_response.image_base64,
-        "message": grpc_response.message,
-        "status_code": grpc_response.status_code
+        "image_path": grpc_response.image_path,  # Include the image path here
+        "status": "success"
     }), 200
+
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
