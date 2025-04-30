@@ -17,13 +17,15 @@ def generate_image():
     if not prompt:
         return jsonify({"error": "Prompt is required"}), 400
 
-    grpc_request = text2image_pb2.ImageRequest(prompt=prompt)
+    context = "Image"  # Or optionally: data.get("context", "Image")
+    text = prompt
+
+    grpc_request = text2image_pb2.ImageRequest(context=context, text=text)
     grpc_response = stub.GenerateImage(grpc_request)
 
-    # Return both image_path and base64 image in the response
     return jsonify({
         "image_base64": grpc_response.image_base64,
-        "image_path": grpc_response.image_path,  # Include the image path here
+        "image_path": grpc_response.image_path,
         "status": "success"
     }), 200
 
