@@ -1,0 +1,10 @@
+torch
+diffusers
+transformers
+accelerate
+flask
+grpcio
+grpcio-tools
+protobuf
+streamlit
+pillow

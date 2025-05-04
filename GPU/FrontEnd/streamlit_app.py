@@ -1,27 +1,35 @@
 import streamlit as st
-import requests
+import grpc
 from PIL import Image
-import io
 import base64
+import io
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import text2image_pb2
+import text2image_pb2_grpc
 
 st.set_page_config(page_title="Text2Image Generator", layout="centered")
 st.title("🧙‍♂️ Text2Image Generator")
 st.markdown("Enter your prompt and generate an AI-powered image.")
+
+# Set up gRPC client
+channel = grpc.insecure_channel('localhost:50051')
+stub = text2image_pb2_grpc.Text2ImageServiceStub(channel)
 
 # Input field
 prompt = st.text_area("Prompt", "a wizard casting fire in the sky")
 
 if st.button("Generate Image"):
     with st.spinner("Generating..."):
-        response = requests.post(
-            "http://localhost:8000/generate",
-            json={"prompt": prompt},
-        )
-        if response.status_code == 200:
-            data = response.json()
-            image_base64 = data["image_base64"]
+        context = "fantasy art"  # or let user select from dropdown
+        request = text2image_pb2.ImageRequest(context=context, text=prompt)
+        
+        try:
+            response = stub.GenerateImage(request)
+            image_base64 = response.image_base64
             image_bytes = base64.b64decode(image_base64)
             image = Image.open(io.BytesIO(image_bytes))
             st.image(image, caption="Generated Image", use_column_width=True)
-        else:
-            st.error("Failed to generate image. Server error or invalid input.")
+        except grpc.RpcError as e:
+            st.error(f"gRPC Error: {e.details()}")

@@ -6,13 +6,16 @@ import base64
 from io import BytesIO
 
 import torch
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 
 import text2image_pb2
 import text2image_pb2_grpc
 
 # Load model on GPU
 pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5")
+
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
+
 pipe = pipe.to("cuda")
 pipe.enable_attention_slicing()
 

@@ -55,8 +55,8 @@ import json
 
 # Configuration for the REST API and number of concurrent requests
 url = "http://localhost:8000/generate"
-num_requests = 10  # Number of requests to simulate
-concurrent_requests = 5  # Number of concurrent requests
+num_requests = 4  # Number of requests to simulate
+concurrent_requests = 3  # Number of concurrent requests
 
 # CSV file to log performance results
 csv_file = "performance_log.csv"
@@ -68,8 +68,7 @@ response_times = []
 def send_request(request_id):
     # Prepare the JSON payload for the request
     payload = {
-        "context": "fantasy art",
-        "text": "a wizard casting fire in the sky"
+        "prompt": "a wizard casting fire in the sky"
     }
 
     try:
