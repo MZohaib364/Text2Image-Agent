@@ -16,7 +16,7 @@ A GPU-accelerated, Dockerized microservice that enables **text-to-image generati
 
 - ✅ Local GPU inference using Hugging Face's `diffusers` pipeline
 - ✅ **gRPC-based** communication with protobuf definitions
-- ✅ REST API wrapper as optional fallback interface
+- ✅ REST API wrapper as optional for postman testing
 - ✅ Images returned as base64 and saved as PNG files
 - ✅ Streamlit frontend with intuitive prompt UI
 - ✅ Concurrent request handling with async processing
@@ -164,7 +164,7 @@ Response:
 
 ```
 ┌────────────┐        ┌────────────┐        ┌─────────────┐        ┌────────────────────────┐
-│  Streamlit │◀──────▶│  gRPC API  │◀──────▶│  REST API   │◀──────▶│ Hugging Face + PyTorch │
+│  Streamlit │◀──────▶│  gRPC API  │◀──────▶│  REST API   │◀──────▶│ Diffusers + PyTorch │
 └────────────┘        └────────────┘        └─────────────┘        └────────────────────────┘
       ▲                     ▲                    ▲                           ▲
       │                     │                    │                           │
